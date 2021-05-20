@@ -2,7 +2,16 @@
 
 Lambdas for C++98 - my very old code, for sentimental purposes only!
 
-At the moment, the code isn't working with a modern compiler!!!
+**Warning:** At the moment, the code isn't working with a modern compiler!!!
+
+The idea was to be able to write code like:
+
+    find_if(vec.begin(), vec.end(), lambda(_$1 <= 2))
+    for_each(vec.begin(), vec.end(), lambda(cout << _$1 << "\n"));
+
+    sort(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(*_$1 <= *_$2));
+    find_if(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(_$1->getValue() != 7))
+    for_each(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(delete _$1));
 
 # Explantions
 
