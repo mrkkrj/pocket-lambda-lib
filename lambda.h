@@ -25,8 +25,10 @@
 #include <iosfwd> // for Shift templates
 #include <cstdio>
 
+
 #define DEBUGi(a) printf(#a "=%d\n", a);
 #define DEBUGs(a) printf(#a "=%s\n", a);
+
 
 namespace kmx
 {
@@ -130,6 +132,7 @@ namespace kmx
 
    //===============================================
    // --- binary op's, invoking 1 placeholder
+
    // Bjarne's idea:
    // You don't have to write function objects,
    // libraries can write them for you (generative programming)!
@@ -206,6 +209,7 @@ namespace kmx
       // -- needed for globvar()!!!
       
       template <class S> void operator()(S t) { val = val2; } // bound
+
       //S getval;
       //AssgnTo(T &t) : val(t), getval(identity<T>) { }
       //AssgnTo(T &t, S& s) : val(t), getval(s) { }
@@ -232,6 +236,7 @@ namespace kmx
 
       template <class R>
       bool operator()(R r) { return lexpr(r) == val; }
+
       // OPEN todo: preli! Bound and called in another context,
       // -- needed for globvar()!!!
       //template <class S> void operator()(S t) { val = val2; } // bound
@@ -311,8 +316,10 @@ namespace kmx
    {
       T& val;
       Const(T& t) : val(t) { }
+
       const T& operator()() const { return val; }
       const T& value() const { return val; }
+      
       template <class S> // for different context: needed for Shift!!!
       const T& operator()(S& s) const { return val; } // ignore input
    };
@@ -581,10 +588,9 @@ namespace kmx
       template <class U>
       // OPEN, TODO: check if then_expr needs the val argument!
       bool operator()(U& val) {
-
-      // correction 2021!!!
-#if 0 
-         // OPEN:: how did taht even compile back then????
+         // correction 2021!!!
+         // OPEN:: how did this even compile back then????
+#if 0    
          if (if_expr(val))
             eval_then_expr(then_expr, val);
 #else
@@ -596,7 +602,7 @@ namespace kmx
             return false;
          }
 #endif
-     // correction 2021!!!
+         // correction 2021 - END...
       }
    };
 
@@ -604,7 +610,7 @@ namespace kmx
    IfThen<S, T> if_then(S s, T t) { return IfThen<S, T>(s, t); }
 
    // t.b.c.....
+
 }
 
 #endif
-

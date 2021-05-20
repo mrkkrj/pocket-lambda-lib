@@ -1,3 +1,23 @@
+/****************************************************************************/
+/**
+* Copyright (C) ib-krajewski.de 2007. All Rights Reserved. Confidential.
+*
+* Distribution only to people who need to know this information in
+* order to do their job.(Need-to-know principle).
+* Distribution to persons outside the company, only if these persons
+* signed a non-disclosure agreement.
+* Electronic transmission, e.g. via electronic mail, must be made in
+* encrypted form.
+*
+* @file /.../lambda-test.cpp
+* @version /main/....
+* @author Marek Krajewski
+* @date ....
+*
+* This file contains tests of a simple lambda expr. library for use with
+* the STL library functions.
+*
+****************************************************************************/
 
 #include "lambda.h"
 
@@ -9,6 +29,8 @@
 using namespace kmx;
 using namespace std;
 
+
+// test helpers
 
 struct XXX 
 { 
@@ -27,7 +49,6 @@ void pr_sinus(int val)
 {
    cout << "sin(" << val << ")=" << sin(val) << "\n";
 }
-
 
 int g_counter = 0;
 
@@ -60,6 +81,7 @@ void countVec_Xshort(int val)
 }
 
 
+// tests
 
 int main()
 {
@@ -79,9 +101,9 @@ int main()
    for_each(vec.begin(), vec.end(), bind(pr_sinus, _$1 * 2));
    
    const float pi = 3.14;
-   for_each(vec.begin(), vec.end(), /* - */ bind(sinus, _$1 * (pi / 180.0)));
-   
+   for_each(vec.begin(), vec.end(), /* - */ bind(sinus, _$1 * (pi / 180.0)));   
    // TODO --- negate (operator-())!!
+
    cout << " counter --> " << g_counter << endl;
 
    // 2. vector of integers

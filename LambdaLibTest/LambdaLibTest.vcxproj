@@ -24,6 +24,9 @@
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{85BE4AC0-0F72-4DEB-8B7C-43DCD5F100A0}</ProjectGuid>
