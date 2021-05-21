@@ -13,6 +13,31 @@ The idea was to be able to write code like:
     find_if(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(_$1->getValue() != 7))
     for_each(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(delete _$1));
 
+What finally was implemented is:
+
+    find_if(vec.begin(), vec.end(), _$1 <= 2);
+    for_each(vec.begin(), vec.end(), cout << _$1 << delay("\n")); 
+
+    sort(vec_of_ptrs.begin(), vec_of_ptrs.end(), *_$1 <= *_$2);
+    find_if(vec_of_ptrs.begin(), vec_of_ptrs.end(), _$1->*(&TestObj::getVal) != 7)
+
+and, additionally:
+
+    // printing for members 
+    for_each(vec_of_ptrs.begin(), vec_of_ptrs.end(), cout << delay(" value=") << (_$1->*(&TestObj::getVal)) << delay(","));
+
+    // access to globals
+    for_each(vecx.begin(), vecx.end(), globvar(global_counter) += 5);
+
+    // currying
+    for_each(vec.begin(), vec.end(), bind(print_sinus, _$1 * 2));
+
+    // control structure(s)
+    for_each(vec.begin(), vec.end(), if_then(_$1 == 1, globvar(global_counter)++));
+    for_each(vec.begin(), vec.end(), if_then(_$1 == 7, _$1 = 9));
+
+The *lambda()* expression wrapper wasn't done (no time) and I just forgot (!!) about *delete* support.
+
 # Explantions
 
 I wrote a couple of blogposts explaining ideas behind this implementation:
@@ -29,3 +54,5 @@ I wrote a couple of blogposts explaining ideas behind this implementation:
  - remove crashes in C++17 Release build
  - add CMake support
  - add C++98 build
+ - add lambda() wrapper for expressions
+ - impl. support for deleting over pointers!

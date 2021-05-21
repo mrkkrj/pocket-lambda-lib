@@ -149,6 +149,10 @@ int main()
    
    iterp = find_if(vp.begin(), vp.end(), *_$1 == 1);
    cout << " find *== 1 ---> " << *(*iterp) << endl;
+
+   // mrkkrj: added 2021
+   iterp = find_if(vp.begin(), vp.end(), *_$1 != 1);
+   cout << " find *!= 1 ---> " << *(*iterp) << endl;
    
    sort(vp.begin(), vp.end(), *_$1 <= *_$2);
    for_each(vp.begin(), vp.end(), cout << " vp --> " << *_$1 << delay(", "));
@@ -163,11 +167,13 @@ int main()
 
    // access values: fields directly OR by getters
    for_each(vecx.begin(), vecx.end(), cout << delay(" .. ") << _$1->*(&XXX::value));
-   cout << " || ";
-   
-   for_each(vecx.begin(), vecx.end(), cout << delay(" .. ") << (_$1->*(&XXX::getVal))); //*5);
+   cout << " || ";   
+   for_each(vecx.begin(), vecx.end(), cout << delay(" .. ") << (_$1->*(&XXX::getVal))); //*5);  //+ delay(5); ????
    cout << endl;
    
+   for_each(vecx.begin(), vecx.end(), cout << delay(" value=") << (_$1->*(&XXX::getVal)) << delay(",")); // mrkkrj: added 2021
+   cout << endl;
+
    // CANNOT DO: find_if(vecx.begin(), vecx.end(), _$1->value == 1);
    // BUT:
    iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::value) == 2);
@@ -176,7 +182,10 @@ int main()
    cout << " find_if _$1->*(XXX:value) == 3 ---> " << (*iterx)->value << endl;
    iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::getVal) == 1);
    cout << " find_if _$1->*(XXX:getVal) == 1 ---> " << (*iterx)->value << endl;
-   
+   // mrkkrj: added 2021
+   iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::getVal) != 7);
+   cout << " find_if _$1->*(XXX:getVal) != 7 ---> " << (*iterx)->value << endl;
+
    // shouldn't clash with - lambda: *_$1 <= *$2 !!!
    iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::getVal) <= 2);
    cout << " find_if _$1->*(XXX:getVal) <= 2 ---> " << (*iterx)->value << endl;
