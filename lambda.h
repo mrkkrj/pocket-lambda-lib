@@ -243,7 +243,24 @@ namespace kmx
    };
 
    template <class S, class T> EqTo<S, T> operator==(S s, T t) { return EqTo<S, T>(s, t); }
-   
+
+   // lambda_expr !=
+   //  - mrkkrj: added 2021
+   template<class S, class T> struct NEqTo : public lambda_expr {
+      S lexpr;
+      T val;
+      NEqTo(S s, T t) : lexpr(s), val(t) { }
+
+      template <class R>
+      bool operator()(R r) { return lexpr(r) != val; }
+
+      // OPEN todo: preli! Bound and called in another context,
+      // -- needed for globvar()!!!
+      //template <class S> void operator()(S t) { val != val2; } // bound
+   };
+
+   template <class S, class T> NEqTo<S, T> operator!=(S s, T t) { return NEqTo<S, T>(s, t); }
+
 
    //===============================================
    // ---- binary, for 2 placeholders / lambda expr.
