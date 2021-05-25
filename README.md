@@ -1,6 +1,6 @@
 # pocket-lambda-lib
-
-Lambdas for C++98 - my very old code, for sentimental purposes only!
+[comment]: # " ![lambda pic](haskell-logo.png) "
+<img src="haskell-logo.png" alt="lambda pic" width="80"/><br/>Lambdas for C++98 - my very old code, for sentimental purposes only!
 
 **Warning:** At the moment, the code isn't working with a modern compiler!!!
 
@@ -52,7 +52,7 @@ I wrote a couple of blogposts explaining ideas behind this implementation:
 
  - remove asserts in C++17 Debug build
  - remove crashes in C++17 Release build
- - add CMake support
- - add C++98 build
  - add lambda() wrapper for expressions
  - impl. support for deleting over pointers!
+ - add CMake support
+ - add C++98 build
