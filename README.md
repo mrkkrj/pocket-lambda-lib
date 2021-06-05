@@ -2,8 +2,6 @@
 [comment]: # " ![lambda pic](haskell-logo.png) "
 <img src="haskell-logo.png" alt="lambda pic" width="80"/><br/>Lambdas for C++98 - my very old code, for sentimental purposes only!
 
-**Warning:** At the moment, the code isn't working with a modern compiler!!!
-
 The idea was to be able to write code like:
 
     find_if(vec.begin(), vec.end(), lambda(_$1 <= 2))
@@ -13,7 +11,7 @@ The idea was to be able to write code like:
     find_if(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(_$1->getValue() != 7))
     for_each(vec_of_ptrs.begin(), vec_of_ptrs.end(), lambda(delete _$1));
 
-What finally was implemented is:
+What finally got implemented is:
 
     find_if(vec.begin(), vec.end(), _$1 <= 2);
     for_each(vec.begin(), vec.end(), cout << _$1 << delay("\n")); 
@@ -50,9 +48,8 @@ I wrote a couple of blogposts explaining ideas behind this implementation:
 
 # TODOs
 
- - remove asserts in C++17 Debug build
- - remove crashes in C++17 Release build
  - add lambda() wrapper for expressions
  - impl. support for deleting over pointers!
  - add CMake support
  - add C++98 build
+ - fix the problem with it == vec.end() not compiling!

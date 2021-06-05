@@ -1,13 +1,6 @@
 /****************************************************************************/
 /**
-* Copyright (C) ib-krajewski.de 2007. All Rights Reserved. Confidential.
-*
-* Distribution only to people who need to know this information in
-* order to do their job.(Need-to-know principle).
-* Distribution to persons outside the company, only if these persons
-* signed a non-disclosure agreement.
-* Electronic transmission, e.g. via electronic mail, must be made in
-* encrypted form.
+* Copyright (C) ib-krajewski.de 2007. All Rights Reserved. 
 *
 * @file /.../lambda-test.cpp
 * @version /main/....
@@ -134,7 +127,7 @@ int main()
    for_each(v10.begin(), v10.end(), _$1 = 7);
    cout << "v10:" << endl;
    for_each(v10.begin(), v10.end(),
-      cout << delay("--- ") << _$1 << delay("\n")); //<< endl);
+            cout << delay("--- ") << _$1 << delay("\n")); //<< endl);
 
    // OPEN TODO ---
    // for_each(v10.begin(), v10.end(), _$1 = bind(&mul2, _$1));
@@ -154,7 +147,16 @@ int main()
    iterp = find_if(vp.begin(), vp.end(), *_$1 != 1);
    cout << " find *!= 1 ---> " << *(*iterp) << endl;
    
+   // mrkkrj: added 2021
+#if _MSVC
+   // not correct for sorting - must be strict weak ordering!!!
    sort(vp.begin(), vp.end(), *_$1 <= *_$2);
+#else
+   vp.push_back(new int(2));
+   vp.push_back(new int(4));
+   sort(vp.begin(), vp.end(), *_$1 < *_$2);
+#endif
+
    for_each(vp.begin(), vp.end(), cout << " vp --> " << *_$1 << delay(", "));
    cout << endl;
 
@@ -178,8 +180,15 @@ int main()
    // BUT:
    iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::value) == 2);
    cout << " find_if _$1->*(XXX:value) == 2 ---> " << (*iterx)->value << endl;
-   iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::value) == 3);
-   cout << " find_if _$1->*(XXX:value) == 3 ---> " << (*iterx)->value << endl;
+   iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::value) == 3);   
+
+   // mrkkrj: added 2021 -- not found!
+   //  OPEN TODO::: iterx != vecx.end() not working!!! It tries to invoke kmx::NEqTo<> !!!!
+   if (iterx.operator!=(vecx.end())) 
+   {
+      cout << " find_if _$1->*(XXX:value) == 3 ---> " << (*iterx)->value << endl;
+   }
+
    iterx = find_if(vecx.begin(), vecx.end(), _$1->*(&XXX::getVal) == 1);
    cout << " find_if _$1->*(XXX:getVal) == 1 ---> " << (*iterx)->value << endl;
    // mrkkrj: added 2021

@@ -3,14 +3,7 @@
 
 /****************************************************************************/
 /**
-* Copyright (C) ib-krajewski.de 2007. All Rights Reserved. Confidential.
-*
-* Distribution only to people who need to know this information in
-* order to do their job.(Need-to-know principle).
-* Distribution to persons outside the company, only if these persons
-* signed a non-disclosure agreement.
-* Electronic transmission, e.g. via electronic mail, must be made in
-* encrypted form.
+* Copyright (C) ib-krajewski.de 2007. All Rights Reserved. 
 *
 * @file /.../lambda.h
 * @version /main/....
@@ -294,11 +287,15 @@ namespace kmx
       
       template <class U> // one side is bound! OPEN: assume right side!!!
       bool operator()(U a) const { return e1(a) <= e2; }
+
+      // NEW::
+      template <class U> // one side is bound! OPEN: assume right side!!!
+      explicit operator bool() const { return true; }
    };
 
    Le2 operator<=(placeholder<1>, placeholder<2>) { return Le2(); }
 
-   template <class S, class T> // only f r sort,
+   template <class S, class T> // only for sort,
    Le2_forw<S, T> operator<=(S s, T t) { return Le2_forw<S, T>(s, t); }
 
    // a >= b
@@ -321,6 +318,29 @@ namespace kmx
 
    template <class S, class T> // for 2 lambda expr
    Ge2_forw<S, T> operator>=(S s, T t) { return Ge2_forw<S, T>(s, t); }
+
+   // mrkkrj: added 2021
+   //  -- OPEN TODO::: use perf. forwarding?
+   struct Less2 : public lambda_expr
+   {
+      Less2() { }
+      template<class T> bool operator()(T a, T b) const { return a < b; }
+   };
+
+   template <class S, class T> struct Less2_forw : public lambda_expr
+   {
+      S e1;
+      T e2;
+      Less2_forw(S s, T t) : e1(s), e2(t) { }
+      template <class U>
+      bool operator()(U a, U b) const { return e1(a) < e2(b); }
+   };
+
+   Less2 operator<(placeholder<1>, placeholder<2>) { return Less2(); }
+
+   template <class S, class T> // for 2 lambda expr
+   Less2_forw<S, T> operator<(S s, T t) { return Less2_forw<S, T>(s, t); }
+
 
 
    //=============================================
