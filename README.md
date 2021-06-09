@@ -1,6 +1,6 @@
 # pocket-lambda-lib
-[comment]: # " ![lambda pic](haskell-logo.png) "
-<img src="haskell-logo.png" alt="lambda pic" width="80"/><br/>Lambdas for C++98 - my very old code, for sentimental purposes only!
+[comment]: # " ![lambda pic](plambda-logo-2.jpg) "
+<img src="plambda-logo-2.jpg" alt="lambda pic" width="80"/><br/>Lambdas for C++98 - my very old code, for sentimental purposes only!
 
 The idea was to be able to write code like:
 
@@ -48,8 +48,8 @@ I wrote a couple of blogposts explaining ideas behind this implementation:
 
 # TODOs
 
- - add lambda() wrapper for expressions
+ - add the _lambda()_ wrapper for expressions
  - impl. support for deleting over pointers!
  - add CMake support
  - add C++98 build
- - fix the problem with it == vec.end() not compiling!
+ - fix the problem with _it == vec.end()_ not compiling!
